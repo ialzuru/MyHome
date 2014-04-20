@@ -15,12 +15,12 @@ import android.os.Build;
 
 public class CameraActivity extends Activity {
 
-	@Override
+	@Override 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_camera);
 
-       /* LIVING ROOM CAM ON */
+       /* LIVING ROOM CAM ON  r*/
         final Button onbutton = (Button) findViewById(R.id.LivingONRB);
         onbutton.setOnClickListener(new View.OnClickListener()
         {
