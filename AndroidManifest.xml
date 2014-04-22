@@ -67,6 +67,6 @@
             android:name="com.myhome.CameraActivity"
             android:label="@string/title_activity_camera" >
         </activity>
-    </application>
+    </application> 
 
 </manifest>
