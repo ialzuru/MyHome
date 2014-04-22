@@ -37,13 +37,14 @@ public class LoginActivity extends Activity {
 		setContentView(R.layout.activity_login);
 
 		final EditText inputname = (EditText) findViewById(R.id.editText2);
-		EditText inputpassword = (EditText) findViewById(R.id.editText3);
+		final EditText inputpassword = (EditText) findViewById(R.id.editText3);
 		final Button lbutton = (Button) findViewById(R.id.button1);
 
 		lbutton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				String check = inputname.getText().toString();
-				if (check.equals("Akchay")) {
+				String checkName = inputname.getText().toString();
+				String checkPwd = inputpassword.getText().toString();
+				if ((checkName.equals("ialzuru"))&&((checkPwd.equals("123")))) {
 					Intent intentobj = new Intent(LoginActivity.this,
 							SuperviseActivity.class);
 					LoginActivity.this.startActivity(intentobj);

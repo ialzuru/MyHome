@@ -22,12 +22,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.os.Build;
+import android.widget.RadioButton;
 
 //import com.myhome.LoginActivity.EndpointsTask;
 import com.myhome.lightendpoint.Lightendpoint;
 import com.myhome.lightendpoint.model.Light;
 
 public class LightsActivity extends Activity {
+	Lightendpoint epBedroom, epKitchen;
+	Light lightBedroom, lightKitchen;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +43,7 @@ public class LightsActivity extends Activity {
         {
             public void onClick(View v)
             {
+            	((RadioButton) v).setChecked(true);
             	new EndpointsTask().execute(getApplicationContext());
             }
 
@@ -60,17 +64,18 @@ public class LightsActivity extends Activity {
         {
             public void onClick(View v)
             {
-            	Intent intentobj = new Intent (LightsActivity.this, SuperviseActivity.class);
-                LightsActivity.this.startActivity(intentobj);
+
             }
 
         });
-        
         
 		if (savedInstanceState == null) {
 			getFragmentManager().beginTransaction()
 					.add(R.id.container, new PlaceholderFragment()).commit();
 		}
+		
+    	Intent intentobj = new Intent (LightsActivity.this, SuperviseActivity.class);
+        LightsActivity.this.startActivity(intentobj);
 	}
 
 	@Override
@@ -81,7 +86,6 @@ public class LightsActivity extends Activity {
 		return true;
 	}
 
-	
 
 	public class EndpointsTask extends AsyncTask<Context, Integer, Long> {
 		protected Long doInBackground(Context... contexts) {
@@ -91,18 +95,44 @@ public class LightsActivity extends Activity {
 				public void initialize(HttpRequest httpRequest) {
 				}
 			});
-			Lightendpoint endpoint = CloudEndpointUtils.updateBuilder(
+			
+			Lightendpoint epBedroom = CloudEndpointUtils.updateBuilder(
 				endpointBuilder).build();
+			Lightendpoint epKitchen = CloudEndpointUtils.updateBuilder(
+					endpointBuilder).build();
 			
 			try {
-				Light light = new Light();
-				light = endpoint.getLight("0").execute();
-				if (light == null) {
+				lightBedroom = new Light();
+				lightBedroom = epBedroom.getLight("0").execute();
+				if (lightBedroom == null) {
 					System.out.println("No Action ");
 				} else {
-					light.setState(1);
-					Light result = endpoint.updateLight(light).execute();
+					if (lightBedroom.getState() == 1) {
+						((RadioButton) findViewById(R.id.radioButton3)).setChecked(true);
+						((RadioButton) findViewById(R.id.radioButton4)).setChecked(false);
+					} else {
+						((RadioButton) findViewById(R.id.radioButton3)).setChecked(false);
+						((RadioButton) findViewById(R.id.radioButton4)).setChecked(true);
+					}
+					//lightBedroom.setState(1);
+					//epBedroom.updateLight(lightBedroom).execute();
 				}
+				
+				lightKitchen = new Light();
+				lightKitchen = epKitchen.getLight("0").execute();
+				if (lightKitchen == null) {
+					System.out.println("No Action ");
+				} else {
+					if (lightBedroom.getState() == 1)
+						((RadioButton) findViewById(R.id.radioButton3)).setChecked(true);
+					else
+						((RadioButton) findViewById(R.id.radioButton3)).setChecked(true);
+					//lightKitchen.setState(1);
+					//epKitchen.updateLight(lightKitchen).execute();
+				}
+				
+				
+				
 				
 				/*
 				Light ms1 = new Light();
