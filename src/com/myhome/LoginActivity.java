@@ -69,68 +69,6 @@ public class LoginActivity extends Activity {
 		return true;
 	}
 
-	/* public class EndpointsTask extends AsyncTask<Context, Integer, Long> {
-		protected Long doInBackground(Context... contexts) {
-
-			Actionendpoint.Builder endpointBuilder = new Actionendpoint.Builder(
-					AndroidHttp.newCompatibleTransport(), new JacksonFactory(),
-					new HttpRequestInitializer() {
-						public void initialize(HttpRequest httpRequest) {
-						}
-					});
-			Actionendpoint endpoint = CloudEndpointUtils.updateBuilder(
-					endpointBuilder).build();
-			
-			/*Movementsensorendpoint.Builder endpointBuilder = new Movementsensorendpoint.Builder(
-			AndroidHttp.newCompatibleTransport(), new JacksonFactory(),
-			new HttpRequestInitializer() {
-				public void initialize(HttpRequest httpRequest) {
-				}
-			});
-			Movementsensorendpoint endpoint = CloudEndpointUtils.updateBuilder(
-				endpointBuilder).build();
-			*/
-			//try {
-				/*Action action = new Action();
-				String noteID = "123445";
-				//String noteID = "id=5738600293466112";
-				action.setId(noteID);
-				action.setActionType("Update");
-				action.setHomeID(2);
-				action.setSensorID(2);
-				action.setSensorType("UPdate");
-				action.setState(2);
-				System.out.println("BEfore Update v3 ");*/
-				// action.put();
-				//Action result = endpoint.insertAction(action).execute();    //             insertAction(action).execute();
-				//System.out.println("After Update: " + result);
-				
-				/*System.out.println("Before update v4");
-				Action action = new Action();
-				action = endpoint.getAction("1234").execute();
-				if (action == null) {
-					System.out.println("No Action ");
-				} else {
-					System.out.println("Action Type = " + action.getActionType());
-					action.setActionType("Update2");
-					Action result = endpoint.updateAction(action).execute();
-				}*/
-
-				/*MovementSensor ms1 = new MovementSensor();
-				ms1.setIdname("0");
-				ms1.setHomeID(1);
-				ms1.setLocation("Movement");
-				ms1.setLastMovement("2014-04-17 10:10:10");
-				ms1.setUpdateTime("2014-04-17 10:10:10");
-				MovementSensor result1 = endpoint.insertMovementSensor(ms1).execute();*/ 
-		/*	} catch (IOException e) {
-				System.out.println("After Update v3 ");
-				e.printStackTrace();
-			}
-			return (long) 0;
-		}
-	} */
-
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// Handle action bar item clicks here. The action bar will

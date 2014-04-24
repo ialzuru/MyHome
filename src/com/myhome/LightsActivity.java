@@ -1,6 +1,8 @@
 package com.myhome;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import com.google.api.client.extensions.android.http.AndroidHttp;
@@ -29,6 +31,8 @@ import android.widget.RadioButton;
 
 
 
+
+
 //import com.myhome.LoginActivity.EndpointsTask;
 import com.myhome.lightendpoint.Lightendpoint;
 import com.myhome.lightendpoint.model.Light;
@@ -41,26 +45,51 @@ public class LightsActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_lights);
+		
 		/* BEDROOM LIGHTS ON */
 		
-        final Button onbutton = (Button) findViewById(R.id.radioButton3);
-        onbutton.setOnClickListener(new View.OnClickListener()
+        final Button onbuttonB = (Button) findViewById(R.id.radioButton1);
+        onbuttonB.setOnClickListener(new View.OnClickListener()
         {
             public void onClick(View v)
             {
-            	//((RadioButton) v).setChecked(true);
-            	//new EndpointsTask().execute(getApplicationContext());
+	    		((RadioButton) findViewById(R.id.radioButton2)).setChecked(false);
+	    		new EPTUpdate(1, 1).execute(getApplicationContext());
             }
 
         });
         /* BEDROOM LIGHTS OFF */
-        final Button offbutton = (Button) findViewById(R.id.radioButton4);
-        offbutton.setOnClickListener(new View.OnClickListener()
+        final Button offbuttonB = (Button) findViewById(R.id.radioButton2);
+        offbuttonB.setOnClickListener(new View.OnClickListener()
         {
             public void onClick(View v)
             {
-    	    	//Intent intentobj = new Intent (LightsActivity.this, SuperviseActivity.class);
-    	        //LightsActivity.this.startActivity(intentobj);
+            	((RadioButton) findViewById(R.id.radioButton1)).setChecked(false);
+            	new EPTUpdate(1, 0).execute(getApplicationContext());
+            }
+
+        });		
+		
+		/* KITCHEN LIGHTS ON */
+		
+        final Button onbuttonK = (Button) findViewById(R.id.radioButton3);
+        onbuttonK.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View v)
+            {
+	    		((RadioButton) findViewById(R.id.radioButton4)).setChecked(false);
+	    		new EPTUpdate(0, 1).execute(getApplicationContext());
+            }
+
+        });
+        /* KITCHEN LIGHTS OFF */
+        final Button offbuttonK = (Button) findViewById(R.id.radioButton4);
+        offbuttonK.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View v)
+            {
+            	((RadioButton) findViewById(R.id.radioButton3)).setChecked(false);
+            	new EPTUpdate(0, 0).execute(getApplicationContext());
             }
 
         });
@@ -88,7 +117,7 @@ public class LightsActivity extends Activity {
 	    if(hasFocus){
 	    	Values lightValues = new Values(2);
 	    	try {
-				new EndpointsTask(lightValues).execute(getApplicationContext()).get();
+				new EPTRead(lightValues).execute(getApplicationContext()).get();
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -96,14 +125,20 @@ public class LightsActivity extends Activity {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-	    	if (lightValues.v[0] == 1)
+	    	if (lightValues.v[0] == 1) {
 	    		((RadioButton) findViewById(R.id.radioButton1)).setChecked(true);
-	    	else
+	    		((RadioButton) findViewById(R.id.radioButton2)).setChecked(false);
+	    	} else {
+	    		((RadioButton) findViewById(R.id.radioButton1)).setChecked(false);
 	    		((RadioButton) findViewById(R.id.radioButton2)).setChecked(true);
-	    	if (lightValues.v[1] == 1)
+	    	}
+	    	if (lightValues.v[1] == 1) {
 	    		((RadioButton) findViewById(R.id.radioButton3)).setChecked(true);
-	    	else
-	    		((RadioButton) findViewById(R.id.radioButton4)).setChecked(true);	    	
+	    		((RadioButton) findViewById(R.id.radioButton4)).setChecked(false);
+	    	} else {
+	    		((RadioButton) findViewById(R.id.radioButton3)).setChecked(false);
+	    		((RadioButton) findViewById(R.id.radioButton4)).setChecked(true);
+	    	}
 	    }   
 	}
 	
@@ -115,10 +150,13 @@ public class LightsActivity extends Activity {
 		return true;
 	}
 
-	public class EndpointsTask extends AsyncTask<Context, Integer, Long> {
+	
+	
+	
+	public class EPTRead extends AsyncTask<Context, Integer, Long> {
 		Values v;
 		
-		EndpointsTask(Values auxV) {
+		EPTRead(Values auxV) {
 			v = auxV;
 		}
 		
@@ -173,6 +211,67 @@ public class LightsActivity extends Activity {
 		}
 	}
 	
+	
+	
+	public class EPTUpdate extends AsyncTask<Context, Integer, Long> {
+		int id, state;
+		
+		EPTUpdate(int i, int s){
+			id = i;
+			state = s;
+		}
+	
+		protected Long doInBackground(Context... contexts) {
+
+			Lightendpoint.Builder endpointBuilder = new Lightendpoint.Builder(
+					AndroidHttp.newCompatibleTransport(), new JacksonFactory(),
+					new HttpRequestInitializer() {
+						public void initialize(HttpRequest httpRequest) {
+						}
+					});
+			Lightendpoint endpoint = CloudEndpointUtils.updateBuilder(
+					endpointBuilder).build();
+			
+			try {
+				/*Action action = new Action();
+				String noteID = "123445";
+				//String noteID = "id=5738600293466112";
+				action.setId(noteID);
+				action.setActionType("Update");
+				action.setHomeID(2);
+				action.setSensorID(2);
+				action.setSensorType("UPdate");
+				action.setState(2);
+				System.out.println("BEfore Update v3 ");*/
+				// action.put();
+				//Action result = endpoint.insertAction(action).execute();    //             insertAction(action).execute();
+				//System.out.println("After Update: " + result);
+				
+				//System.out.println("Before update v4");
+				Light light = new Light();
+				light = endpoint.getLight(Integer.toString(id)).execute();
+				if (light == null) {
+					System.out.println("No Action ");
+				} else {
+					//System.out.println("Action Type = " + action.getActionType());
+					light.setState(state);
+					endpoint.updateLight(light).execute();
+				}
+
+				/*MovementSensor ms1 = new MovementSensor();
+				ms1.setIdname("0");
+				ms1.setHomeID(1);
+				ms1.setLocation("Movement");
+				ms1.setLastMovement("2014-04-17 10:10:10");
+				ms1.setUpdateTime("2014-04-17 10:10:10");
+				MovementSensor result1 = endpoint.insertMovementSensor(ms1).execute();*/ 
+			} catch (IOException e) {
+				System.out.println("After Update v3 ");
+				e.printStackTrace();
+			}
+			return (long) 0;
+		}
+	} 
 	
 	
 	@Override
