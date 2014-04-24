@@ -41,17 +41,6 @@ public class CameraActivity extends Activity {
 
         });
         
-        final Button homepage = (Button) findViewById(R.id.camerahomepage);
-        homepage.setOnClickListener(new View.OnClickListener()
-        {
-            public void onClick(View v)
-            {
-            	Intent intentobj = new Intent (CameraActivity.this, SuperviseActivity.class);
-                CameraActivity.this.startActivity(intentobj);
-            }
-
-        });
-        
 		if (savedInstanceState == null) {
 			getFragmentManager().beginTransaction()
 					.add(R.id.container, new PlaceholderFragment()).commit();

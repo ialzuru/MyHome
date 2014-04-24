@@ -4,20 +4,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.myhome.LightsActivity"
+     android:background="@drawable/house7"
     tools:ignore="MergeRootFrame" >
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
-
-        <Button
-            android:id="@+id/lightshomepage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="39dp"
-            android:text="HOMEPAGE" />
 
         <ImageView
             android:id="@+id/imageView1"
@@ -39,35 +31,6 @@
             android:textColor="#FF0000" />
 
         <RadioButton
-            android:id="@+id/radioButton1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/lightshomepage"
-            android:layout_alignRight="@+id/lightshomepage"
-            android:layout_marginBottom="29dp"
-            android:text="ON"
-            android:textColor="#008009" />
-
-        <RadioButton
-            android:id="@+id/radioButton3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/radioButton1"
-            android:layout_centerVertical="true"
-            android:text="ON"
-            android:textColor="#008009" />
-
-        <TextView
-            android:id="@+id/textView1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/radioButton1"
-            android:layout_alignParentLeft="true"
-            android:layout_marginLeft="17dp"
-            android:text="BEDROOM LIGHT"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-
-        <RadioButton
             android:id="@+id/radioButton4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -77,13 +40,44 @@
             android:text="OFF"
             android:textColor="#FF0000" />
 
+        <RadioButton
+            android:id="@+id/radioButton1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/radioButton3"
+            android:layout_centerVertical="true"
+            android:text="ON"
+            android:textColor="#008009" />
+
+        <RadioButton
+            android:id="@+id/radioButton3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignRight="@+id/textView2"
+            android:layout_below="@+id/radioButton1"
+            android:layout_marginRight="40dp"
+            android:layout_marginTop="68dp"
+            android:text="ON"
+            android:textColor="#008009" />
+
         <TextView
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/radioButton3"
-            android:layout_alignLeft="@+id/textView1"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/radioButton1"
+            android:layout_marginTop="18dp"
             android:text="KITCHEN LIGHT"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/radioButton1"
+            android:layout_alignParentLeft="true"
+            android:layout_marginBottom="16dp"
+            android:text="BEDROOM LIGHT"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
     </RelativeLayout>

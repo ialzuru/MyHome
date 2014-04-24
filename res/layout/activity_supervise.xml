@@ -4,40 +4,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.myhome.SuperviseActivity"
+    android:background="@drawable/house7"
     tools:ignore="MergeRootFrame" >
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
-
-        <TextView
-            android:id="@+id/textView4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/button2"
-            android:layout_below="@+id/button2"
-            android:layout_marginTop="81dp"
-            android:textColor="#008009"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="CAMERAS" />
-
-        <TextView
-            android:id="@+id/textView5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/textView4"
-            android:layout_below="@+id/textView4"
-            android:layout_marginTop="20dp"
-            android:text="BACKYARD" />
-
-        <TextView
-            android:id="@+id/textView6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/textView5"
-            android:layout_below="@+id/textView5"
-            android:layout_marginTop="22dp"
-            android:text="LIVING ROOM" />
 
         <TextView
             android:id="@+id/textView2"
@@ -69,42 +41,54 @@
             android:layout_marginTop="14dp"
             android:text="KITCHEN" />
 
-        <Button
-            android:id="@+id/suplightsbutton"
+        <TextView
+            android:id="@+id/textView5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/button2"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="14dp"
-            android:text="SUPERVISE LIGHTS"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+            android:layout_alignLeft="@+id/textView4"
+            android:layout_below="@+id/textView4"
+            android:layout_marginTop="38dp"
+            android:text="BACKYARD" />
 
-        <Button
-            android:id="@+id/button2"
+        <TextView
+            android:id="@+id/textView4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/textView3"
-            android:layout_below="@+id/textView3"
-            android:layout_marginTop="14dp"
-            android:text="ADD LIGHTS" />
+            android:layout_centerVertical="true"
+            android:text="CAMERAS"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#008009" />
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/textView5"
+            android:layout_below="@+id/textView5"
+            android:layout_marginTop="20dp"
+            android:text="LIVING ROOM" />
 
         <Button
             android:id="@+id/supcamerasbutton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/button3"
-            android:layout_centerHorizontal="true"
+            android:layout_alignLeft="@+id/textView6"
+            android:layout_below="@+id/textView6"
+            android:layout_marginLeft="22dp"
+            android:layout_marginTop="25dp"
             android:text="SUPERVISE CAMERAS"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <Button
-            android:id="@+id/button3"
+            android:id="@+id/suplightsbutton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/textView6"
-            android:layout_below="@+id/textView6"
-            android:layout_marginTop="14dp"
-            android:text="ADD LIGHTS" />
+            android:layout_below="@+id/textView3"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="26dp"
+            android:text="SUPERVISE LIGHTS"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
 
     </RelativeLayout>
 

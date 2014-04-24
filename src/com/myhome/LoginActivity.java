@@ -44,7 +44,7 @@ public class LoginActivity extends Activity {
 			public void onClick(View v) {
 				String checkName = inputname.getText().toString();
 				String checkPwd = inputpassword.getText().toString();
-				if ((checkName.equals("ialzuru"))&&((checkPwd.equals("123")))) {
+				if ((checkName.equals(""))&&((checkPwd.equals("")))) {
 					Intent intentobj = new Intent(LoginActivity.this,
 							SuperviseActivity.class);
 					LoginActivity.this.startActivity(intentobj);

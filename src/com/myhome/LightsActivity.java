@@ -1,6 +1,7 @@
 package com.myhome;
 
 import java.io.IOException;
+import java.util.concurrent.ExecutionException;
 
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.http.HttpRequest;
@@ -24,6 +25,10 @@ import android.widget.Button;
 import android.os.Build;
 import android.widget.RadioButton;
 
+
+
+
+
 //import com.myhome.LoginActivity.EndpointsTask;
 import com.myhome.lightendpoint.Lightendpoint;
 import com.myhome.lightendpoint.model.Light;
@@ -36,35 +41,26 @@ public class LightsActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_lights);
-		/* KITCHEN LIGHTS ON */
+		/* BEDROOM LIGHTS ON */
 		
         final Button onbutton = (Button) findViewById(R.id.radioButton3);
         onbutton.setOnClickListener(new View.OnClickListener()
         {
             public void onClick(View v)
             {
-            	((RadioButton) v).setChecked(true);
-            	new EndpointsTask().execute(getApplicationContext());
+            	//((RadioButton) v).setChecked(true);
+            	//new EndpointsTask().execute(getApplicationContext());
             }
 
         });
-        /* KITCHEN LIGHTS OFF */
+        /* BEDROOM LIGHTS OFF */
         final Button offbutton = (Button) findViewById(R.id.radioButton4);
         offbutton.setOnClickListener(new View.OnClickListener()
         {
             public void onClick(View v)
             {
-              
-            }
-
-        });
-        
-        final Button homepage = (Button) findViewById(R.id.lightshomepage);
-        homepage.setOnClickListener(new View.OnClickListener()
-        {
-            public void onClick(View v)
-            {
-
+    	    	//Intent intentobj = new Intent (LightsActivity.this, SuperviseActivity.class);
+    	        //LightsActivity.this.startActivity(intentobj);
             }
 
         });
@@ -73,11 +69,44 @@ public class LightsActivity extends Activity {
 			getFragmentManager().beginTransaction()
 					.add(R.id.container, new PlaceholderFragment()).commit();
 		}
-		
-    	Intent intentobj = new Intent (LightsActivity.this, SuperviseActivity.class);
-        LightsActivity.this.startActivity(intentobj);
+
 	}
 
+
+	public class Values {
+		public int[] v;
+		
+		Values(int n) {
+			v = new int[n];
+			for(int i=0; i<n; i++)
+				v[i] = 0;
+		}
+	}
+	
+	@Override
+	public void onWindowFocusChanged(boolean hasFocus) {
+	    if(hasFocus){
+	    	Values lightValues = new Values(2);
+	    	try {
+				new EndpointsTask(lightValues).execute(getApplicationContext()).get();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ExecutionException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	    	if (lightValues.v[0] == 1)
+	    		((RadioButton) findViewById(R.id.radioButton1)).setChecked(true);
+	    	else
+	    		((RadioButton) findViewById(R.id.radioButton2)).setChecked(true);
+	    	if (lightValues.v[1] == 1)
+	    		((RadioButton) findViewById(R.id.radioButton3)).setChecked(true);
+	    	else
+	    		((RadioButton) findViewById(R.id.radioButton4)).setChecked(true);	    	
+	    }   
+	}
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 
@@ -86,8 +115,13 @@ public class LightsActivity extends Activity {
 		return true;
 	}
 
-
 	public class EndpointsTask extends AsyncTask<Context, Integer, Long> {
+		Values v;
+		
+		EndpointsTask(Values auxV) {
+			v = auxV;
+		}
+		
 		protected Long doInBackground(Context... contexts) {
 			Lightendpoint.Builder endpointBuilder = new Lightendpoint.Builder(
 			AndroidHttp.newCompatibleTransport(), new JacksonFactory(),
@@ -96,41 +130,29 @@ public class LightsActivity extends Activity {
 				}
 			});
 			
-			Lightendpoint epBedroom = CloudEndpointUtils.updateBuilder(
+			Lightendpoint endpoint = CloudEndpointUtils.updateBuilder(
 				endpointBuilder).build();
-			Lightendpoint epKitchen = CloudEndpointUtils.updateBuilder(
-					endpointBuilder).build();
-			
+
 			try {
-				lightBedroom = new Light();
-				lightBedroom = epBedroom.getLight("0").execute();
+		    	System.out.println("Begin try");
+				
+		    	lightBedroom = new Light();
+				lightBedroom = endpoint.getLight("1").execute();
+				System.out.println("State for bedroom: " + lightBedroom.getState() );
 				if (lightBedroom == null) {
 					System.out.println("No Action ");
 				} else {
-					if (lightBedroom.getState() == 1) {
-						((RadioButton) findViewById(R.id.radioButton3)).setChecked(true);
-						((RadioButton) findViewById(R.id.radioButton4)).setChecked(false);
-					} else {
-						((RadioButton) findViewById(R.id.radioButton3)).setChecked(false);
-						((RadioButton) findViewById(R.id.radioButton4)).setChecked(true);
-					}
-					//lightBedroom.setState(1);
-					//epBedroom.updateLight(lightBedroom).execute();
+					v.v[0] = lightBedroom.getState();
 				}
 				
 				lightKitchen = new Light();
-				lightKitchen = epKitchen.getLight("0").execute();
+				lightKitchen = endpoint.getLight("0").execute();
+				System.out.println("State for Kitchen: " + lightKitchen.getState() );
 				if (lightKitchen == null) {
 					System.out.println("No Action ");
 				} else {
-					if (lightBedroom.getState() == 1)
-						((RadioButton) findViewById(R.id.radioButton3)).setChecked(true);
-					else
-						((RadioButton) findViewById(R.id.radioButton3)).setChecked(true);
-					//lightKitchen.setState(1);
-					//epKitchen.updateLight(lightKitchen).execute();
+					v.v[1] = lightKitchen.getState();
 				}
-				
 				
 				
 				
