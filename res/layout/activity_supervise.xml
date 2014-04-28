@@ -33,17 +33,6 @@
             android:text="LIVING ROOM" />
 
         <Button
-            android:id="@+id/supcamerasbutton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/textView6"
-            android:layout_below="@+id/textView6"
-            android:layout_marginLeft="22dp"
-            android:layout_marginTop="25dp"
-            android:text="SUPERVISE CAMERAS"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-
-        <Button
             android:id="@+id/suplightsbutton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -65,31 +54,41 @@
             android:textColor="#008009" />
 
         <TextView
-            android:id="@+id/textView5"
+            android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/textView4"
-            android:layout_below="@+id/textView4"
-            android:layout_marginTop="22dp"
-            android:text="BACKYARD" />
+            android:layout_alignRight="@+id/textView4"
+            android:layout_below="@+id/textView1"
+            android:layout_marginTop="21dp"
+            android:text="BEDROOM" />
 
         <TextView
             android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/textView1"
+            android:layout_alignLeft="@+id/textView2"
             android:layout_below="@+id/textView2"
             android:layout_marginTop="14dp"
             android:text="KITCHEN" />
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/textView5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/textView3"
-            android:layout_below="@+id/textView1"
+            android:layout_below="@+id/textView4"
             android:layout_marginTop="19dp"
-            android:text="BEDROOM" />
+            android:text="BACKYARD" />
+
+        <Button
+            android:id="@+id/supcamerasbutton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/suplightsbutton"
+            android:layout_below="@+id/textView6"
+            android:layout_marginTop="27dp"
+            android:text="SUPERVISE CAMERAS"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
 
     </RelativeLayout>
 
